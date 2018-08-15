@@ -47,4 +47,29 @@ class IntrusiveBlockingQueue : public AbstractMPSCQ {
     BlockingMPSCQueue<Dummy> internalQueue;
     semaphore sem;
 };
+
+class BlockingQueue : public AbstractMPSCQ {
+  private:
+    class Dummy {};
+  public:
+    typedef NonIntrusiveBlockingMPSCQueue<Dummy>::Node Node;
+    virtual bool enqueue(void* item) {
+        if (internalQueue.push(*reinterpret_cast<Node*>(item))) {
+            sem.post();
+        }
+        return true;
+    }
+
+    virtual bool dequeue(void** item) {
+        *item = internalQueue.pop();
+        if (*item == nullptr) {
+            sem.wait();
+            return false;
+        }
+        return true;
+    }
+  private:
+    NonIntrusiveBlockingMPSCQueue<Dummy> internalQueue;
+    semaphore sem;
+};
 #endif

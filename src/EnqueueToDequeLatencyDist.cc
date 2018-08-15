@@ -67,7 +67,8 @@ int main(){
     // Benchmark each one
     std::pair<const char*, AbstractMPSCQ*> descriptionAndQueue[] = {
         {"uThread_IntrusiveNonBlocking", new IntrusiveNonBlockingQueue},
-        {"uThread_IntrusiveBlocking", new IntrusiveBlockingQueue}
+        {"uThread_IntrusiveBlocking", new IntrusiveBlockingQueue},
+        {"uThread_NonIntrusiveBlocking", new BlockingQueue}
     };
 
     for (auto pair: descriptionAndQueue) {
