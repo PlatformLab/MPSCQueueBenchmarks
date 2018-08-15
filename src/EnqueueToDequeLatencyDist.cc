@@ -78,4 +78,5 @@ int main(){
     stats = transformStatistics(stats, cyclesToNanoseconds);
     printStatistics(stats, "uThread_IntrusiveNonBlocking");
     dequeuer.join();
+    delete queue;
 }

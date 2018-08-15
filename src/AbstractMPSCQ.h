@@ -8,5 +8,6 @@ class AbstractMPSCQ {
   public:
     virtual bool enqueue(void* item) = 0;
     virtual bool dequeue(void** item) = 0;
+    virtual ~AbstractMPSCQ() {}
 };
 #endif
