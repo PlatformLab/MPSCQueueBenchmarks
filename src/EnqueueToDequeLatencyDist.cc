@@ -65,18 +65,25 @@ uint64_t cyclesToNanoseconds(uint64_t cycles) {
 
 int main(){
     // Benchmark each one
-    queue = new IntrusiveNonBlockingQueue;
+    std::pair<const char*, AbstractMPSCQ*> descriptionAndQueue[] = {
+        {"uThread_IntrusiveNonBlocking", new IntrusiveNonBlockingQueue},
+        {"uThread_IntrusiveBlocking", new IntrusiveBlockingQueue}
+    };
 
-    // Start the consumer
-    consumerRecordedTime = false;
-    std::thread dequeuer(consumer);
+    for (auto pair: descriptionAndQueue) {
+        const char* desc = pair.first;
+        queue = pair.second;
 
-    // Wait for consumer to fully start
-    while (!consumerRecordedTime);
+        // Start the consumer
+        consumerRecordedTime = false;
+        std::thread dequeuer(consumer);
 
-    Statistics stats = PerfUtils::manualBench(producer, NUM_ITERATIONS);
-    stats = transformStatistics(stats, cyclesToNanoseconds);
-    printStatistics(stats, "uThread_IntrusiveNonBlocking");
-    dequeuer.join();
-    delete queue;
+        // Wait for consumer to fully start
+        while (!consumerRecordedTime);
+
+        Statistics stats = PerfUtils::manualBench(producer, NUM_ITERATIONS);
+        stats = transformStatistics(stats, cyclesToNanoseconds);
+        printStatistics(stats, desc);
+        dequeuer.join();
+    }
 }
