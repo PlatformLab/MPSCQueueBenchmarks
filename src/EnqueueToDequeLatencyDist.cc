@@ -5,7 +5,7 @@
 #include "PerfUtils/Perf.h"
 #include "PerfUtils/Cycles.h"
 
-#define NUM_ITERATIONS 1000
+#define NUM_ITERATIONS 100000
 #define NUM_DISTINCT_CONTEXT 50
 
 using PerfUtils::Cycles;
