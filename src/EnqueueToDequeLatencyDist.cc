@@ -1,6 +1,7 @@
 #include <thread>
 #include "AbstractMPSCQ.h"
 #include "uThreadQueues.h"
+#include "WaitFreeQueue.h"
 #include "PerfUtils/Perf.h"
 #include "PerfUtils/Cycles.h"
 
@@ -68,7 +69,8 @@ int main(){
     std::pair<const char*, AbstractMPSCQ*> descriptionAndQueue[] = {
         {"uThread_IntrusiveNonBlocking", new IntrusiveNonBlockingQueue},
         {"uThread_IntrusiveBlocking", new IntrusiveBlockingQueue},
-        {"uThread_NonIntrusiveBlocking", new BlockingQueue}
+        {"uThread_NonIntrusiveBlocking", new BlockingQueue},
+        {"dbittman_WaitFreeQueue", new WaitFreeQueue(100)}
     };
 
     for (auto pair: descriptionAndQueue) {

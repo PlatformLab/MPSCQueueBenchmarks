@@ -10,9 +10,10 @@ OBJECT_DIR = obj
 # Dependencies
 PERFUTILS=../PerfUtils
 UTHREAD_MPSC=../MPSCQ/src
+WAIT_FREE_QUEUE=../waitfree-mpsc-queue
 
-CPPFLAGS=-I$(PERFUTILS)/include -I$(UTHREAD_MPSC) -I$(SRC_DIR)
-LDLIBS=$(PERFUTILS)/lib/libPerfUtils.a -lpcrecpp -pthread
+CPPFLAGS=-I$(PERFUTILS)/include -I$(UTHREAD_MPSC) -I$(WAIT_FREE_QUEUE) -I$(SRC_DIR)
+LDLIBS=$(PERFUTILS)/lib/libPerfUtils.a $(WAIT_FREE_QUEUE)/libmpscq.a -lpcrecpp -pthread
 
 BINS = EnqueueToDequeLatencyDist
 FULL_BINS = $(patsubst %,$(BIN_DIR)/%,$(BINS))
