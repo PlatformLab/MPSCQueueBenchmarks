@@ -2,7 +2,7 @@
 #define WAIT_FREE_QUEUE_H
 
 #include "AbstractMPSCQ.h"
-#include "mpscq_cpp.h"
+#include "mpscq.h"
 
 /**
  * A wrapper around Daniel Bittman's implementation of an MPSCQ.
