@@ -25,6 +25,12 @@ The current set of MPSC queues that are benchmarked are listed below.
 This benchmark assumes that the queue repositories are cloned in the parent
 directory of this repository.
 
+## Dependencies
+
+The only dependency beyond the queues being benchmarked is
+[PlatformLab/PerfUtils](https://github.com/PlatformLab/PerfUtils/).  It should
+be cloned into the parent directory and built before this benchmark is built.
+
 ## Adding a new queue
 
 To add a new queue to the benchmark, it suffices to add a subclass of
