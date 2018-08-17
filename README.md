@@ -11,6 +11,23 @@ is dequeued from the queue.
 This latency benchmark does nothing to verify that the queue behaves correctly
 for multiple producers and a single consumer.
 
-The throughput benchmark assumes that the queue behaves correctly under
-multiple producers and attempts to measure the maximum throughput of the queue
-as the number of successful dequeues from the single consumer each second.
+The throughput benchmark (not yet implemented) assumes that the queue behaves
+correctly under multiple producers and attempts to measure the maximum
+throughput of the queue as the number of successful dequeues from the single
+consumer each second.
+
+The current set of MPSC queues that are benchmarked are listed below.
+ - Intrusive non-blocking queue from [samanbarghi](https://github.com/samanbarghi/MPSCQ).
+ - Intrusive blocking queue from [samanbarghi](https://github.com/samanbarghi/MPSCQ).
+ - Non-Intrusive blocking queue from [samanbarghi](https://github.com/samanbarghi/MPSCQ).
+ - Wait-free queue from [dbittman](https://github.com/dbittman/waitfree-mpsc-queue)
+
+This benchmark assumes that the queue repositories are cloned in the parent
+directory of this repository.
+
+## Adding a new queue
+
+To add a new queue to the benchmark, it suffices to add a subclass of
+`AbstractMPSCQ` which wraps the appropriate operations, and then add an
+instantiation to the `descriptionAndQueue` data structure in
+`src/EnqueueToDequeLatencyDist.cc`.
